@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if status == 'error' %}
+    <h1>Error!</h1>
+    <p>{{ details }}</p>
+{% elif status == 'success' %}
+    <h1>Last 10 posts from your VK wall:</h1>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <a href="https://vk.com/id{{ post.owner_id }}?w=wall{{ post.owner_id }}_{{ post.id }}">
+                    {{ post.text | truncatewords:10 }}
+                </a>
+            </li>
+        {% empty %}
+        <li>Sorry, no posts found =(</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock content %}
